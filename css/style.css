@@ -1,0 +1,274 @@
+/* Author Ali Metehan Baş */
+/* Author Ali Metehan Baş */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body {
+  margin-left: 0%;
+  font-family: 'Roboto', sans-serif;
+  background-color: #e5eef4 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  -webkit-animation: fadein 1s;
+}
+
+/* all body fade-in effect */
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Header and nav-bar styling , until .navbar */
+header {
+  display: flex;
+  width: 90%;
+  height: 10vh;
+  margin: auto;
+  align-items: center;
+  color: #0a82cd;
+  font-family: 'Roboto', sans-serif;
+}
+
+.logo-container,
+
+.nav-links,
+
+.cart {
+  display: flex;
+}
+
+.logo-container {
+  flex: 1;
+}
+
+.logo {
+  font-weight: 400;
+  margin-top: 7%;
+  margin-left: 10%;
+}
+
+#logo {
+  width: 25%;
+  border-radius: 50%;
+}
+
+nav {
+  flex: 2;
+}
+
+.nav-links {
+  justify-content: space-around;
+  list-style: none;
+}
+
+.nav-link {
+  color: #0a82cd;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.cart {
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.navbar {
+  margin-right: 8%;
+}
+
+.sm {
+  width: 10%;
+  margin: 15px;
+}
+
+.display-3 {
+  margin-left: 10%;
+}
+
+.display-5 {
+  text-align: center;
+}
+
+#main-img {
+  width: 70%;
+  margin-left: 10%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.heading {
+  color: #0a82cd;
+}
+
+#submit {
+  margin-left: 1%;
+}
+
+/* thats are for slider on the main page */
+.carousel {
+  margin-top: 50px;
+}
+
+.carousel-inner {
+  height: 300px;
+}
+
+.carousel-caption {
+  color: #000;
+  top: 60%;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(100%);
+}
+
+/*Modal styling (Survey window)  */
+.modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modal.right.fade .modal-dialog {
+  right: -320px;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+  right: 0;
+}
+
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.modal-header {
+  border-bottom-color: #EEEEEE;
+  background-color: #FAFAFA;
+}
+
+/* Survey button styling and its options colors when they selected, but it didnot work as i thought */
+#surveybtn {
+  backface-visibility: hidden;
+  position: fixed;
+  margin-left: 1%;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  background: #0a82cd;
+  border-radius: 100px;
+  border: 0px solid #444;
+  border-width: 0px 0px 0px 0px;
+  padding: 10px 13px 10px 13px;
+  color: #000;
+  font-size: 16px;
+  font-family: Helvetica Neue;
+  font-weight: 900;
+  font-style: normal
+}
+
+input[type=radio][value="option1"]:checked+label:after {
+  border-color: #2e7d32;
+  background-color: #2e7d32;
+}
+
+input[type=radio][value="option2"]:checked+label:after {
+  border-color: #64dd17;
+  background-color: #64dd17;
+}
+
+input[type=radio][value="option3"]:checked+label:after {
+  border-color: #ffea00;
+  background-color: #ffea00;
+}
+
+input[type=radio][value="option4"]:checked+label:after {
+  border-color: #ff9800;
+  background-color: #ff9800;
+}
+
+input[type=radio][value="option5"]:checked+label:after {
+  border-color: #d50000;
+  background-color: #d50000;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  background-color: #FFF;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #33b5e5;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #33b5e5;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* To make blue every 2n+1th row of the dues table */
+.table-striped>tbody>tr:nth-child(2n+1)>td, .table-striped>tbody>tr:nth-child(2n+1)>th {
+  background-color: #33b5e5;
+}

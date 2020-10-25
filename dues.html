@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
+
+  <title>KARDELEN SİTESİ</title>
+</head>
+
+<body>
+  <header>
+    <div class="logo-container">
+      <a href="index.html" style="text-decoration:none;font-weight: 400;margin:7% 7%;">
+        <h4>KARDELEN SİTESİ</h4>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a class="nav-link" href="dues.html">Aidat ve Gelir/Gider</a></li>
+        <li><a class="nav-link" href="request.html">İstek/Şikayet</a></li>
+      </ul>
+    </nav>
+    <div class="cart">
+      <p>
+        <a href="login.html" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> Çıkış Yap
+        </a>
+      </p>
+    </div>
+  </header>
+  <br><br><br><br><br><br>
+  <div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8" style="margin-left:5%;">
+      <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Ablok')">A BLOK</button>
+        <button class="tablinks" onclick="openTab(event, 'Bblok')">B BLOK</button>
+        <button class="tablinks" onclick="openTab(event, 'Cblok')">C BLOK</button>
+        <button class="tablinks" onclick="openTab(event, 'Gelirgider')" id="defaultOpen">Gelir Gider</button>
+      </div><br>
+
+      <div id="Ablok" class="tabcontent">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Daire</th>
+              <th scope="col">İsim</th>
+              <th scope="col">Aidat</th>
+              <th scope="col">Borç</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Sena Baş</td>
+              <td>75₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Toycan Taskiran</td>
+              <td>75₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Alaca Yuksel</td>
+              <td>100₺</td>
+              <td>100₺</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Gurkan Aykut</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Melih Kalkan</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Akaner Kivanc</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>Emin Uzun</td>
+              <td>100₺</td>
+              <td>50₺</td>
+            </tr>
+            <tr>
+              <th scope="row">8</th>
+              <td>Ildemir Ercetin</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">9</th>
+              <td>Toydemir Tasci</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td>Yildiray Tekin</td>
+              <td>100₺</td>
+              <td>100₺</td>
+            </tr>
+            <tr>
+              <th scope="row">11</th>
+              <td>Dolunay Balkan</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">12</th>
+              <td>Sevinc Babaoglu</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">13</th>
+              <td>Biricik Erdem</td>
+              <td>100₺</td>
+              <td>50₺</td>
+            </tr>
+            <tr>
+              <th scope="row">14</th>
+              <td>Nurhan Gunes</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">15</th>
+              <td>Yaser Tahir</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">16</th>
+              <td>Tufan Eser</td>
+              <td>100₺</td>
+              <td>150₺</td>
+            </tr>
+            <tr>
+              <th scope="row">17</th>
+              <td>Larry</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">18</th>
+              <td>Cezmi Yigit</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">19</th>
+              <td>Selin Ozturk</td>
+              <td>100₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">20</th>
+              <td>Adile Topcu</td>
+              <td>100₺</td>
+              <td>200₺</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div id="Bblok" class="tabcontent">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Daire</th>
+              <th scope="col">İsim</th>
+              <th scope="col">Aidat</th>
+              <th scope="col">Borç</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Metehan Baş</td>
+              <td>475₺</td>
+              <td>₺0</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Emrah Turel</td>
+              <td>475₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Bayrak Tunc</td>
+              <td>550₺</td>
+              <td>150₺</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Tekozer Erbil</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Mervan Ozbilen</td>
+              <td>550₺</td>
+              <td>50₺</td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Tanju Ciller</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>Sefa Kaya</td>
+              <td>550₺</td>
+              <td>75₺</td>
+            </tr>
+            <tr>
+              <th scope="row">8</th>
+              <td>Begum Ozkul</td>
+              <td>550₺</td>
+              <td>50₺</td>
+            </tr>
+            <tr>
+              <th scope="row">9</th>
+              <td>Demir Tandogan</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td>Akbay Aktas</td>
+              <td>550₺</td>
+              <td>100₺</td>
+            </tr>
+            <tr>
+              <th scope="row">11</th>
+              <td>Ayhan Parlak</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">12</th>
+              <td>Elcin Durmaz</td>
+              <td>550₺</td>
+              <td>200₺</td>
+            </tr>
+            <tr>
+              <th scope="row">13</th>
+              <td>Deniz Tekeli</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">14</th>
+              <td>Orkide Kahraman</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">15</th>
+              <td>Birce Ece</td>
+              <td>550₺</td>
+              <td>100₺</td>
+            </tr>
+            <tr>
+              <th scope="row">16</th>
+              <td>Ilke Guclu</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">17</th>
+              <td>Umut Suvari</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+            <tr>
+              <th scope="row">18</th>
+              <td>Ceyhun Nazli</td>
+              <td>550₺</td>
+              <td>50₺</td>
+            </tr>
+            <tr>
+              <th scope="row">19</th>
+              <td>Onal Turan</td>
+              <td>550₺</td>
+              <td>150₺</td>
+            </tr>
+            <tr>
+              <th scope="row">20</th>
+              <td>Yunus Gulek</td>
+              <td>550₺</td>
+              <td>0₺</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div id="Cblok" class="tabcontent">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Daire</th>
+              <th scope="col">İsim</th>
+              <th scope="col">Aidat</th>
+              <th scope="col">Borç</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">8</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">9</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">11</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">12</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">13</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">14</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">15</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">16</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">17</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">18</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">19</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            <tr>
+              <th scope="row">20</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div id="Gelirgider" class="tabcontent">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Ay</th>
+              <th scope="col">Aylık Toplam Gelir</th>
+              <th scope="col">Aylık Toplam Gider</th>
+              <th scope="col">Aylık Gelir Farkı</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Ocak</th>
+              <td>2142</td>
+              <td>5126</td>
+              <td>-3124</td>
+            </tr>
+            <tr>
+              <th scope="row">Şubat</th>
+              <td>3153</td>
+              <td>1245</td>
+              <td>2513</td>
+            </tr>
+            <tr>
+              <th scope="row">Mart</th>
+              <td>6141</td>
+              <td>2144</td>
+              <td>4212</td>
+            </tr>
+            <tr>
+              <th scope="row">Nisan</th>
+              <td>5421</td>
+              <td>4311</td>
+              <td>1231</td>
+            </tr>
+            <tr>
+              <th scope="row">Mayıs</th>
+              <td>4213</td>
+              <td>1623</td>
+              <td>1598</td>
+            </tr>
+            <tr>
+              <th scope="row">Haziran</th>
+              <td>5124</td>
+              <td>2451</td>
+              <td>2875</td>
+            </tr>
+            <tr>
+              <th scope="row">Temmuz</th>
+              <td>2151</td>
+              <td>2512</td>
+              <td>-453</td>
+            </tr>
+            <tr>
+              <th scope="row">Ağustos</th>
+              <td>4314</td>
+              <td>1353</td>
+              <td>2989</td>
+            </tr>
+            <tr>
+              <th scope="row">Eylül</th>
+              <td>2534</td>
+              <td>4583</td>
+              <td>-2049</td>
+            </tr>
+            <tr>
+              <th scope="row">Ekim</th>
+              <td>7315</td>
+              <td>3511</td>
+              <td>3865</td>
+            </tr>
+            <tr>
+              <th scope="row">Kasım</th>
+              <td>6121</td>
+              <td>2415</td>
+              <td>4500</td>
+            </tr>
+            <tr>
+              <th scope="row">Aralık</th>
+              <td>2153</td>
+              <td>9852</td>
+              <td>-7752</td>
+            </tr>
+            <tr>
+              <th scope="row">Yıllık Toplam</th>
+              <td>48000</td>
+              <td>43581</td>
+              <td>4419</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright: Metehan Baş
+    </div>
+    <script type="text/javascript" src="./js/manager.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+</body>
