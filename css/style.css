@@ -43,9 +43,7 @@ header {
 }
 
 .logo-container,
-
 .nav-links,
-
 .cart {
   display: flex;
 }
@@ -271,4 +269,10 @@ input[type=radio][value="option5"]:checked+label:after {
 /* To make blue every 2n+1th row of the dues table */
 .table-striped>tbody>tr:nth-child(2n+1)>td, .table-striped>tbody>tr:nth-child(2n+1)>th {
   background-color: #33b5e5;
+}
+
+.required :after { content:"*"; }
+
+.input-form{
+  max-width: 500px;
 }

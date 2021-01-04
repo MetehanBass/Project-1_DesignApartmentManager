@@ -1,4 +1,7 @@
-<!doctype html>
+<?php
+session_start();
+include "db_conn.php";
+ ?>
 <html lang="en">
 
 <head>
@@ -16,14 +19,15 @@
 <body>
   <header>
     <div class="logo-container">
-      <a href="index.html" style="text-decoration:none;font-weight: 400;margin:7% 7%;">
-        <h4>KARDELEN SİTESİ</h4>
+      <a href="home.php" style="text-decoration:none;font-weight: 400;margin:7% 7%;">
+        <h4> KARDELEN SİTESİ</h4>
       </a>
     </div>
     <nav>
       <ul class="nav-links">
-        <li><a class="nav-link" href="dues.html">Aidat ve Gelir/Gider</a></li>
-        <li><a class="nav-link" href="request.html">İstek/Şikayet</a></li>
+        <li><a class="nav-link" href="profile.php?id=<?php echo $_SESSION['id'];?>">Profil</a></li>
+        <li><a class="nav-link" href="dues.php">Gelir/Gider</a></li>
+        <li><a class="nav-link" href="request.php">İstek/Şikayet</a></li>
 
       </ul>
     </nav>
@@ -31,7 +35,7 @@
       <ul class="nav-links">
         <li>
           <p>
-            <a href="login.html" class="btn btn-info btn-lg">
+            <a href="logout.php" class="btn btn-info btn-lg">
               <span class="glyphicon glyphicon-log-out"></span> Çıkış Yap
             </a>
           </p>
@@ -47,16 +51,20 @@
       <br><br>
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active">
+          <?php $ret=mysqli_query($conn,"select * from announcement");
+      $i=0;
+      while($row=mysqli_fetch_array($ret)) {
+          $actives = '';
+          if($i == 0){
+            $actives = 'active';
+          }
+            ?>
+          <div class="carousel-item <?=$actives; ?>">
             <div class="carousel-caption">
-              <h1 class="display-5">Toplantı Yaklaşıyor<br><small>Önümüzdeki toplantı 29.10.2020 tarihinde 19.00'da Mercan Kafe'de yapılacaktır.</small></h1>
+              <h1 class="display-5"><?php echo $row['header'];?><br><small><?php echo $row['content'];?></small></h1>
             </div>
           </div>
-          <div class="carousel-item">
-            <div class="carousel-caption">
-              <h1 class="display-5">Araçlarınızı Çekiniz<br><small>27.10.2020 Tarihinde otoparkta yapılacak tadilat nedeniyle araçlarınızı o tarihte başka bir yere park etmenizi rica ederiz.</small></h1>
-            </div>
-          </div>
+            <?php $i=$i+1; }?>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>

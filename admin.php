@@ -16,8 +16,8 @@
 <body>
   <header>
     <div class="logo-container">
-      <a href="login.html" style="text-decoration:none;font-weight: 400;margin:7% 7%;">
-        <h4>KARDELEN SİTESİ</h4>
+      <a href="admin.php" style="text-decoration:none;font-weight: 400;margin:7% 7%;">
+        <h4>YÖNETİCİ GİRİŞİ</h4>
       </a>
     </div>
   </header>
@@ -33,21 +33,25 @@
             <div id="login-row" class="row justify-content-center align-items-center">
               <div id="login-column" class="col-md-8">
                 <div id="login-box" class="col-md-8">
-                  <form id="login-form" class="form" action="" method="post">
+                  <form  name="f1" id="login-form" class="form" action="admin-login.php" onsubmit ="return validation()" method="POST">
+                    <?php if (isset($_GET['error'])) { ?>
+          	      		<p class="error"><?php echo $_GET['error']; ?></p>
+          	      	<?php } ?>
                     <h4 class="text-center text-info">Giriş Yap</h4>
                     <div class="form-group">
-                      <input type="text" name="username" id="username" class="form-control" placeholder="Kullanıcı Adı">
+                      <input type="text" name="aname" id="user" class="form-control" placeholder="Kullanıcı Adı">
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" id="password" class="form-control" placeholder="Parola">
+                      <input type="password" name="password" id="pass" class="form-control" placeholder="Parola">
                     </div>
                     <div class="form-group">
                       <label for="remember-me" class="text-info"><span>Beni Hatırla</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                      <input  type="submit" name="submit" class="btn btn-info btn-md" value="Giriş" formaction="index.html">
+                      <input  type="submit" name="submit" id="btn" class="btn btn-info btn-md" value="Giriş">
                     </div>
                     <div id="register-link" class="text-left">
-                      <a href="#" class="text-info">Kayıt Ol</a>
+                      <a href="index.php" class="text-info">Üye Girişi</a>
                     </div>
+
                   </form>
                 </div>
               </div>
@@ -67,3 +71,4 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </body>
+</html>
