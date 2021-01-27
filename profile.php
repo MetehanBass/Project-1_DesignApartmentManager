@@ -1,8 +1,6 @@
 <?php include "db_conn.php";
 session_start();
 
-
-
 ?>
 
 <html lang="en">
@@ -95,7 +93,7 @@ session_start();
 													<div class="form-group">
 															<label class="col-sm-2 col-sm-2 control-label" style="padding-left:20px;">Parola </label>
 															<div class="col-sm-10">
-																	<input type="text" class="form-control" name="password" value="<?php echo $row['password'];?>" >
+																	<input type="password" class="form-control" name="password" value="<?php echo $row['password'];?>" >
 															</div>
 													</div>
 
@@ -131,59 +129,118 @@ session_start();
 	                        </form>
 	                    </div>
 	                    </div>
+
 											<div class="col-md-8 tabcontent" id="borc">
-												<form class="" action="paydept.php?id=<?php echo $row['id'];?>" method="post">
+                        <table class="table table-bordered table-condensed table-hover">
+            							<!-- <colgroup>
+            								<col width="2%">
+            								<col width="10%">
+            								<col width="10%">
+                            class="btn btn-primary btn-block"
+            								<col width="15%">
+            								<col width="20%">
+            								<col width="15%">
+            								<col width="10%">
+            							</colgroup> -->
+            							<thead>
+            								<tr>
+
+            									<th class="">Tarih</th>
+            									<th class="">Kullanıcı</th>
+            									<th class="">Aidat Miktarı</th>
+            									<th class="">Durum</th>
+            									<th class="text-center">Ödeme</th>
+            								</tr>
+            							</thead>
+            							<tbody>
+            								<?php
+
+            								$billing = $conn->query("SELECT b.*,u.name from billing b inner join users u on u.id = b.user_id where user_id =$userid AND status ='0' order by b.id asc");
+            									while($row=$billing->fetch_assoc()):
+            									?>
+                          	<tr>
 
 
-													<h4> <?php echo 'Aidat Borcunuz '.$row['dept']."₺"; ?></h4>
-
-													<input style="width:15%;margin-right: 1%;margin-top:1%;" type="text" class="form-control" name="paydept"id="exampleInputPassword1" placeholder="Aidat Öde">
-													<button style=" margin-top:2%;" class="btn btn-primary btn-xs">Aidat Öde</button>
-
-												</form> <br>
-												<form class="" action="payextradept.php?id=<?php echo $row['id'];?>" method="post">
-
-
-													<h4> <?php echo 'Ek Gider Borcunuz '.$row['extradept']."₺"; ?></h4>
-
-													<input style="width:15%;margin-right: 1%;margin-top:1%;" type="text" class="form-control" name="payextradept"id="exampleInputPassword1" placeholder="Aidat Öde">
-													<button style=" margin-top:2%;" class="btn btn-primary btn-xs">Aidat Öde</button>
-
-												</form>
-
+            									<td class="">
+            										 <p> <b><?php echo date("M, Y",strtotime($row['billing_date'])) ?></b></p>
+            									</td>
+            									<td class="">
+            										 <p> İsim: <b><?php echo ucwords($row['name']) ?></b></p>
+            									</td>
+            									<td class="">
+            										 <p class="text-right"> <b><?php echo number_format($row['amount'],2)."₺" ?></b></p>
+            									</td>
+            									<td class="">
+            										<?php if($row['status'] == 1): ?>
+            										 <span class="badge badge-success">Ödenmiş</span>
+            										<?php else: ?>
+            										 <span class="badge badge-secondary">Ödenmemiş</span>
+            										<?php endif; ?>
+            									</td>
+            									<td class="text-center">
+                                 <a href="paydept.php?id=<?php echo $row['id'];?>">
+            										<button class="btn btn-sm btn-outline-success view_billing" type="button" onClick="return confirm('Aidatı ödemek istediğinizden emin misiniz?');">Öde</button> </a>
+            									</td>
+            								</tr>
+            								<?php endwhile; ?>
+            							</tbody>
+            						</table>
 											</div>
+
                       <div class="col-md-8 tabcontent" id="odenmis">
-                        <table class="table table-striped table-advance table-hover">
-                        <thead>
-                        <tr>
-                            <th>Kullanıcı Adı</th>
-                            <th>İsim</th>
-                            <th>Miktar</th>
-                            <th>Tarih </th>
+                        <table class="table table-bordered table-condensed table-hover">
+                          <!-- <colgroup>
+                            <col width="2%">
+                            <col width="10%">
+                            <col width="10%">
+                            class="btn btn-primary btn-block"
+                            <col width="15%">
+                            <col width="20%">
+                            <col width="15%">
+                            <col width="10%">
+                          </colgroup> -->
+                          <thead>
+                            <tr>
 
-                        </tr>
-                        </thead>
-                        <tbody>
+                              <th class="">Tarih</th>
+                              <th class="">Kullanıcı</th>
+                              <th class="">Aidat Miktarı</th>
+                              <th class="">Durum</th>
+                              <th class="text-center">Ödeme Tarihi</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
 
-                        <?php
-                        $user_name = $row['user_name'];
-                        // $sqlpay = "SELECT * FROM paymentdetails WHERE username='$row['user_name']'";
-                        $ret=mysqli_query($conn,"SELECT * FROM paymentdetails WHERE username='$user_name'");
-                        $cnt=1;
-                        while($row1=mysqli_fetch_array($ret))
-                        {?>
-                        <tr>
-                            <td><?php echo $row1['username'] ?></td>
-                            <td><?php echo $row1['name'] ?></td>
-                            <td><?php echo $row1['amount'];?></td>
-                            <td><?php echo $row1['paydate'];?></td>
+                            $billing = $conn->query("SELECT b.*,u.name from billing b inner join users u on u.id = b.user_id where user_id =$userid AND status ='1' order by b.id asc");
+                              while($row=$billing->fetch_assoc()):
+                              ?>
+                            <tr>
 
-                                        <td>
-                            </td>
-                        </tr>
-                        <?php $cnt=$cnt+1; }?>
 
-                        </tbody>
+                              <td class="">
+                                 <p> <b><?php echo date("M, Y",strtotime($row['billing_date'])) ?></b></p>
+                              </td>
+                              <td class="">
+                                 <p> İsim: <b><?php echo ucwords($row['name']) ?></b></p>
+                              </td>
+                              <td class="">
+                                 <p class="text-right"> <b><?php echo number_format($row['amount'],2)."₺" ?></b></p>
+                              </td>
+                              <td class="">
+                                <?php if($row['status'] == 1): ?>
+                                 <span class="badge badge-success">Ödenmiş</span>
+                                <?php else: ?>
+                                 <span class="badge badge-secondary">Ödenmemiş</span>
+                                <?php endif; ?>
+                              </td>
+                              <td class="">
+                                 <p> <b><?php echo $row['payment_date'] ?></b></p>
+                              </td>
+
+                            </tr>
+                            <?php endwhile; ?>
+                          </tbody>
                         </table>
 
 											</div>

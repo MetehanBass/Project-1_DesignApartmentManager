@@ -40,6 +40,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
       <ul class="nav-links">
         <li><a class="nav-link" href="admin-panel.php">Ana Sayfa</a></li>
         <li><a class="nav-link" href="users.php">Üyeler</a></li>
+        <li><a class="nav-link" href="billing.php">Aidatlandırma</a></li>
 
       </ul>
     </nav>
@@ -68,7 +69,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
               </div>
               <h6 class="text-uppercase">Üyeler </h6>
               <?php
-              $query = "SELECT id FROM users ORDER BY id";
+              $query = "SELECT id FROM users WHERE exitdate IS NULL ORDER BY id";
               $query_run = mysqli_query($conn, $query);
               $row = mysqli_num_rows($query_run);
               echo '<h1> ' . $row . '</h1>';
@@ -93,31 +94,33 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 py-2">
-                <div class="card text-white bg-info h-100">
-                    <div class="card-body bg-info">
+      <!-- <div class="col-xl-3 col-sm-6 py-2"> -->
+                <!-- <div class="card text-white bg-info h-100"> -->
+                    <!-- <div class="card-body bg-info">
                         <div class="rotate">
                             <i class="fa fa-try fa-4x"></i>
                         </div>
-                        <h6 class="text-uppercase">Güncel Aylık Aidat Geliri</h6>
-                        <?php
-                        $result = mysqli_query($conn, 'SELECT SUM(dept) AS dept FROM users');
-                        $row = mysqli_fetch_assoc($result);
-                        $sum = $row['dept'];
-
-                        $query = "SELECT id FROM users WHERE flat > 4";
-                        $query_run = mysqli_query($conn, $query);
-                        $numberOfMembers = mysqli_num_rows($query_run);
-
-                        $query4 = "SELECT id FROM users Where flat < 5";
-                        $query_run4 = mysqli_query($conn, $query4);
-                        $row4 = mysqli_num_rows($query_run4);
-
-                        $Income = ($numberOfMembers *  250)  + ($row4 * 150) - $sum;
-                         echo '<h1> ' . $Income . '</h1>';  ?></h1>
-                    </div>
+                        <h6 class="text-uppercase">Güncel Aylık Aidat Geliri</h6> -->
+                      <?php
+                        // $result = mysqli_query($conn, 'SELECT SUM(dept) AS dept FROM users');
+                        // $row = mysqli_fetch_assoc($result);
+                        // $sum = $row['dept'];
+                        //
+                        // $query = "SELECT id FROM users WHERE flat > 4";
+                        // $query_run = mysqli_query($conn, $query);
+                        // $numberOfMembers = mysqli_num_rows($query_run);
+                        //
+                        // $query4 = "SELECT id FROM users Where flat < 5";
+                        // $query_run4 = mysqli_query($conn, $query4);
+                        // $row4 = mysqli_num_rows($query_run4);
+                        //
+                        // $Income = ($numberOfMembers *  250)  + ($row4 * 150) - $sum;
+                         // echo '<h1> ' . $Income . '</h1>';
+                         ?>
+                       <!-- </h1> -->
+                    <!-- </div>
                 </div>
-            </div>
+            </div> -->
 
 
       </div> <br><br><br><br>
@@ -138,12 +141,12 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
           $name = $_POST['name'];
           $password = $_POST['password'];
           $password=$_POST['password'];
+          $password = md5($password);
           $phonenum = $_POST['phonenum'];
           $phonenum1 = $_POST['phonenum1'];
           $email = $_POST['email'];
           $flat = $_POST['flat'];
           $block = $_POST['block'];
-          $dept = $_POST['dept'];
           $date = date('Y-m-d H:i:s');
 
           if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -152,7 +155,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
 
               else {
 
-          $sql = "INSERT INTO users (user_name, name, password, block, dept, phonenum, phonenum1, email, flat , regdate) VALUES ('$user_name', '$name', '$password','$block','$dept','$phonenum','$phonenum1','$email', '$flat', '$date')";
+          $sql = "INSERT INTO users (user_name, name, password, block,phonenum, phonenum1, email, flat , regdate) VALUES ('$user_name', '$name', '$password','$block','$phonenum','$phonenum1','$email', '$flat', '$date')";
 
 
             if ($conn->query($sql) === TRUE) {
@@ -224,12 +227,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
         <input class="form-control" type="text" name="flat" value="" placeholder="Daire" required>
       </div>
     </div>
-    <div class="form-group row" style="margin-left:-9px;">
 
-      <div class="col-sm-10">
-        <input class="form-control" type="text" name="dept" value="" placeholder="Güncel Borç">
-      </div>
-    </div>
     <div class="form-group row">
       <div class="col-sm-10">
         <button type="submit" value="Ekle" class="btn btn-primary" name="submit">Ekle</button>
@@ -287,7 +285,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
           } else {
             echo "Duyuru Oluşturulamadı.<br />";
           }
-          header('location:admin-panel.php');
+          // header('location:admin-panel.php');
 
 
 
@@ -352,10 +350,12 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
       <?php
       if (isset($_POST['submit']) && !empty($_POST['header']) && !empty($_POST['amount'])) {
         $header = $_POST['header'];
+        $header = $_POST['contact'];
+        $date = date('Y-m-d H:i:s');
         $amount = $_POST['amount'];
 
 
-        $sql2 = "INSERT INTO incomeAnnouncement (header, amount) VALUES ('$header', '$amount')";
+        $sql2 = "INSERT INTO incomeAnnouncement (header,contact,anounce_date,amount) VALUES ('$header','$contact','$date','$amount')";
 
 
           if ($conn->query($sql2) === TRUE) {
@@ -374,33 +374,6 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
 
       <div id="Gelirgider" class="tabcontent">
         <div class="col-sm-4">
-          <?php
-           $result = mysqli_query($conn, 'SELECT SUM(dept) AS dept FROM users');
-           $row = mysqli_fetch_assoc($result);
-           $sum = $row['dept'];
-           $result1 = mysqli_query($conn, 'SELECT SUM(extradept) AS extradept FROM users');
-           $row1 = mysqli_fetch_assoc($result1);
-           $sumextra = $row1['extradept'];
-
-           $query = "SELECT id FROM users WHERE flat > 4";
-           $query_run = mysqli_query($conn, $query);
-           $numberOfMembers = mysqli_num_rows($query_run);
-
-           $query4 = "SELECT id FROM users Where flat < 5";
-           $query_run4 = mysqli_query($conn, $query4);
-           $row4 = mysqli_num_rows($query_run4);
-
-
-           $Income = ($numberOfMembers *  250) + ($row4 * 150) - $sum;
-
-           ?>
-          <h3>Aylık Beklenen Aidat Geliri  : <?php echo ($numberOfMembers *  250) + ($row4 * 150) ?> </h3> <hr>
-
-          <h3>Ödenmemiş Ek Gelir: <?php echo $sumextra; ?> </h3> <hr>
-
-          <h3>Ödenmemiş aidat geliri : <?php echo $sum ?> </h3> <hr>
-
-          <h3>Güncel aylık aidat geliri  : <?php echo $Income ?> </h3> <hr> <br>
 
           <div class="col-sm-8">
             <form class = "form-signin" role = "form"
@@ -409,7 +382,13 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
           <div class="form-group row">
             <label><p style="color:red;display:inline;">*</p></label>
             <div class="col-sm-10">
-              <input style="width:250%;" class="form-control"  type="text" name="header" value="" placeholder="Başlık" size="20" required>
+              <input style="width:250%;" class="form-control"  type="text" name="header" value="" placeholder="Duyuru Detayı" size="20" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label><p style="color:red;display:inline;">*</p></label>
+            <div class="col-sm-10">
+              <input style="width:150%;" class="form-control"  type="text" name="contact" value="" placeholder="İletişim Ekle" size="20" required>
             </div>
           </div>
           <div class="form-group row">
@@ -433,7 +412,9 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
         <thead>
         <tr>
             <th>Başlık</th>
+            <th>İletişim</th>
             <th>Miktar</th>
+            <th>Tarih</th>
         </tr>
         </thead>
         <tbody>
@@ -444,7 +425,9 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
         <tr>
 
             <td><?php echo $row['header'];?></td>
+            <td><?php echo $row['contact'];?></td>
             <td><?php echo $row['amount']."₺";?></td>
+            <td><?php echo $row['anounce_date'];?></td>
             <td>
 
                <a href="admin-panel.php?id=<?php echo $row['id'];?>">

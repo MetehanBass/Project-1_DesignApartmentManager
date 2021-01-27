@@ -22,8 +22,8 @@
       <nav>
         <ul class="nav-links">
           <li><a class="nav-link" href="admin-panel.php">Ana Sayfa</a></li>
-          <li><a class="nav-link" href="">Aidat ve Gelir/Gider</a></li>
           <li><a class="nav-link" href="users.php">Üyeler</a></li>
+          <li><a class="nav-link" href="billing.php">Aidatlandırma</a></li>
 
         </ul>
       </nav>
@@ -60,14 +60,13 @@
             <th>Telefon 2</th>
             <th>Blok</th>
             <th>Daire</th>
-            <th>Borç</th>
             <th>Kayıt tarihi</th>
             <th>Silinme tarihi</th>
 
         </tr>
         </thead>
         <tbody>
-        <?php $ret=mysqli_query($conn,"select * from oldusers");
+        <?php $ret=mysqli_query($conn,"select * from users WHERE exitdate IS NOT NULL");
 $cnt=1;
 while($row=mysqli_fetch_array($ret))
 {?>
@@ -80,7 +79,6 @@ while($row=mysqli_fetch_array($ret))
             <td><?php echo $row['phonenum1'];?></td>
             <td><?php echo $row['block'];?></td>
             <td><?php echo $row['flat'];?></td>
-            <td><?php echo $row['dept'];?></td>
             <td><?php echo $row['regdate'];?></td>
             <td><?php echo $row['exitdate'];?></td>
                         <td>

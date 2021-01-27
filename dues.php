@@ -41,62 +41,8 @@ session_start();
   <div class="row">
     <div class="col-sm-2">
     </div>
-    <?php
-     $result = mysqli_query($conn, 'SELECT SUM(dept) AS dept FROM users');
-     $row = mysqli_fetch_assoc($result);
-     $sum = $row['dept'];
-     $result1 = mysqli_query($conn, 'SELECT SUM(extradept) AS extradept FROM users');
-     $row1 = mysqli_fetch_assoc($result1);
-     $sumextra = $row1['extradept'];
-
-     $query = "SELECT id FROM users WHERE flat > 4";
-     $query_run = mysqli_query($conn, $query);
-     $numberOfMembers = mysqli_num_rows($query_run);
-
-     $query4 = "SELECT id FROM users Where flat < 5";
-     $query_run4 = mysqli_query($conn, $query4);
-     $row4 = mysqli_num_rows($query_run4);
 
 
-     $Income = ($numberOfMembers *  250) + ($row4 * 150) - $sum;
-
-     ?>
-    <div class="col-sm-10" style="margin-left:5%;">
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-
-          <div class="carousel-item active">
-            <div class="carousel-caption">
-              <h1 class="display-5">Aylık Beklenen Aidat Geliri<br> <br> <small><?php echo ($numberOfMembers *  250) + ($row4 * 150)."₺" ?></small></h1>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="carousel-caption">
-              <h1 class="display-5">Ödenmemiş Ek Gelir<br> <br> <small><?php echo $sumextra."₺"; ?></small></h1>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="carousel-caption">
-              <h1 class="display-5">Ödenmemiş aidat geliri<br> <br> <small> <?php echo $sum."₺" ?></small></h1>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="carousel-caption">
-              <h1 class="display-5">Güncel aylık aidat geliri<br> <br> <small> <?php echo $Income."₺" ?></small></h1>
-            </div>
-          </div>
-
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
     <div class="col-sm-10" style="margin-left:5%;">
       <table class="table table-striped table-advance table-hover">
         <h4><i>Son 30 Günlük Giderler</i></h4>

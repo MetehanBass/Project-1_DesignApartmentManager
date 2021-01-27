@@ -114,22 +114,9 @@ $row = mysqli_fetch_assoc($result);
                 <div class="col-sm-10">
                   <input type="text" class="form-control" name="flat" value="<?php echo $row['flat'];?>" >
                 </div>
-              </div>
 
-                            <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label" style="padding-left:20px;">Aidat Borcu </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="dept" value="<?php echo $row['dept'];?>" >
-                            </div>
-                        </div>
-                            <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label" style="padding-left:20px;">Ekstra Borç </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="extradept" value="<?php echo $row['extradept'];?>" >
-                            </div>
-                        </div>
 
-                        <div style="margin-left:100px;">
+                        <div style="margin-left:100px;margin-top:2%;">
                         <input type="submit" name="Submit" value="Güncelle" class="btn btn-info" style="margin-left:-7%;"></div>
                         </form>
                     </div>

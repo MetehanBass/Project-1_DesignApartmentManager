@@ -2,21 +2,15 @@
 // for deleting user
 if(isset($_GET['id'])) {
 $adminid=$_GET['id'];
-$old = mysqli_query($conn,"INSERT INTO oldusers SELECT * FROM  users WHERE id =$adminid");
 $date = date('Y-m-d H:i:s');
-
+$old = mysqli_query($conn,"UPDATE users SET exitdate='$date' WHERE id =$adminid");
 
 }
-if(isset($_GET['id'])) {
-$adminid=$_GET['id'];
-$msg=mysqli_query($conn,"delete from users where id='$adminid'");
-$sql1 = "UPDATE oldusers SET exitdate='$date' WHERE id =$adminid ";
-$query_run1 = mysqli_query($conn,$sql1);
+
 // // if($msg)
 // // {
 // // echo "<script>alert('Üye Silindi.');</script>";
 // // }
- }
 
 ?>
 
@@ -40,6 +34,7 @@ $query_run1 = mysqli_query($conn,$sql1);
         <ul class="nav-links">
           <li><a class="nav-link" href="admin-panel.php">Ana Sayfa</a></li>
           <li><a class="nav-link" href="users.php">Üyeler</a></li>
+          <li><a class="nav-link" href="billing.php">Aidatlandırma</a></li>
 
         </ul>
       </nav>
@@ -65,22 +60,8 @@ $query_run1 = mysqli_query($conn,$sql1);
         <div class="content-panel">
     <table class="table table-striped table-advance table-hover">
       <h4><i>Üye Detayları</i></h4>
-        <form class="" action="adddeptManuel.php" method="post">
-
-          <button style="float:right; margin-top:1%; margin-bottom:-1%;" class="btn btn-primary btn-xs">Tüm Üyelere Borç Ekle</button>
-          <input style="width:10%;float:right; margin-right: 1%;margin-top:1%; margin-bottom:-1%;" type="text" class="form-control" name="manuelDept"id="exampleInputPassword1" placeholder="Borç Ekle">
-
-        </form>
-
-        <form class="" action="adddept.php" method="post">
-            <button style="margin-left: 40%; margin-top:1%; margin-bottom:-1%;" class="btn btn-primary btn-xs">Aylık Aidat Ekle</button>
-          </form>
-
-          <form class="" action="deldept.php" method="post">
-            <button style="margin-right: 5%; margin-top:1%; margin-bottom:-1%;" class="btn btn-danger btn-xs">Aylık Aidat Sil</button>
-          </form>
           <form class=""action="oldusers.php" method="post">
-            <button style="float:left; margin-top:1%;margin-bottom:-1%;" class="btn btn-info btn-xs">Eski Üyeleri Gör</button>
+            <button style="float:left;;margin-bottom:1%;" class="btn btn-info btn-xs">Eski Üyeleri Gör</button>
           </form>
           <br>
 
@@ -97,14 +78,12 @@ $query_run1 = mysqli_query($conn,$sql1);
             <th>Telefon 2</th>
             <th>Blok</th>
             <th>Daire</th>
-            <th>Aidat Borcu</th>
-            <th>Ekstra Borç</th>
             <th>Kayıt tarihi</th>
 
         </tr>
         </thead>
         <tbody>
-        <?php $ret=mysqli_query($conn,"select * from users");
+        <?php $ret=mysqli_query($conn,"select * from users where exitdate IS NULL");
 $cnt=1;
 while($row=mysqli_fetch_array($ret))
 {?>
@@ -117,8 +96,6 @@ while($row=mysqli_fetch_array($ret))
             <td><?php echo $row['phonenum1'];?></td>
             <td><?php echo $row['block'];?></td>
             <td><?php echo $row['flat'];?></td>
-            <td><?php echo $row['dept']."₺";?></td>
-            <td><?php echo $row['extradept']."₺";?></td>
             <td><?php echo $row['regdate'];?></td>
                         <td>
 

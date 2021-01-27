@@ -1,28 +1,14 @@
 <?php
 include "db_conn.php";
 session_start();
-  $user=$_GET['id'];
-  $paydept = $_POST['paydept'];
-  $username = $_SESSION['username'];
-
-
-  $query = "SELECT * from users where id='".$user."'";
-  $result = mysqli_query($conn, $query) or die ( mysqli_error());
-  $row = mysqli_fetch_assoc($result);
-
-  $name = $row['name'];
-
-  $query1 = "UPDATE users SET dept = dept-$paydept WHERE id='".$user."'";
-  $query_run1 = mysqli_query($conn,$query1);
-
+  $bid=$_GET['id'];
+  $user = $_SESSION['id'];
   $date = date('Y-m-d H:i:s');
-  $query2 = mysqli_query($conn,"INSERT INTO paymentdetails (username,name,amount,paydate) VALUES  ('$username','$name','$paydept','$date')");
-  $query_run2 = mysqli_query($conn,$query2);
+  $update = mysqli_query($conn,"UPDATE billing SET status='1',payment_date='$date' WHERE id =$bid");
 
 
 
-
-  if($query1)
+  if($update)
         header('Location:profile.php?id='.$user.'');
 
  ?>
