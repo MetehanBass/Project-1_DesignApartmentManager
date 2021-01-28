@@ -9,6 +9,7 @@ session_start();
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -42,12 +43,12 @@ session_start();
   </header>
   <br><br><br><br><br><br>
   <div class="row">
-    <div class="col-sm-1">
+    <div class="col-md-4">
+
     </div>
 
 
-
-    <div class="col-sm-10" style="margin-left:5%;">
+    <div class="col-md-8" style="margin-left:15%;">
       <div class="container-fluid">
       <style>
       	input[type=checkbox]
@@ -71,37 +72,43 @@ session_start();
       			<!-- FORM Panel -->
 
       			<!-- Table Panel -->
-
+            <?php if (isset($_GET['error'])) { ?>
+                       <p style="z-index:1;margin-left:43%;color:red"class="error"><?php echo $_GET['error']; } ?></p>
       			<div class="col-md-12">
 
       				<div class="card" style="margin-top:-4%;  background-color: #e5eef4 !important;">
       					<div class="card-header">
-
+                  <h3><b>Borç Ekle<b></h3>
       						<span class="">
                     <form class="" action="addbill.php" method="post">
-                        <h5>&nbspAylık Aidat Listesi  </h5>
-                      <div class="col-md-2 offset-md-5">
-                					<label for="" class="control-label">Tarih Seçiniz</label>
+
+                      <div class="col-md-2 offset-md-3">
+                					<label for="" class="control-label">Tarih</label>
                   					<input type="month" value="<?php echo isset($_GET['billing_date']) ? date('Y-m',strtotime($_GET['billing_date'].'-01')) :date('Y-m'); ?>" class="form-control" name="billing_date">
                 			</div>
-                      <div class="col-md-2 offset-md-7" style="margin-top:-4.3em;">
+                      <div class="col-md-2 offset-md-5" style="margin-top:-4.3em;">
                         <label for="" class="control-label">Miktar</label>
-                        <input type="text" class="form-control" name="amount" id="exampleInputPassword1" placeholder="Aidat Miktarı">
+                        <input type="text" class="form-control" name="amount" id="exampleInputPassword1" placeholder="₺">
+                      </div>
+                      <div class="col-md-2 offset-md-7" style="margin-top:-4.3em;">
+                        <label for="" class="control-label">Açıklama</label>
+                        <input type="text" class="form-control" name="detail" id="exampleInputPassword1" placeholder="Açıklama">
 
                       </div>
                       <div class="col-md-7 offset-md-9" style="margin-top:-2em;">
-                        <button style="" class="btn btn-primary btn-block btn-sm col-sm-2" type="" id="new_billing"> <i class="fa fa-plus">&nbsp Aylık Aidat Ekle</i></button>
+                        <button style="" class="btn btn-primary btn-block btn-sm col-sm-2" type="" id="new_billing" onClick="return confirm('Borç eklemek istediğinize emin misiniz?');"> <i class="fa fa-plus">&nbsp Borç Ekle</i></button>
                       </div>
 
                       </form>
       				</span>
       					</div>
       					<div class="card-body">
+                    <h3><b>Aylık Aidat Listesi<b></h3>
       						<div class="row form-group">
                     <div class="col-md-8 offset-md-3">
                       <form class="" action="filter-month.php" method="post">
                       <div class="col-md-4 offset-md-3">
-                        <label for="" class="control-label">Tarih Seçiniz</label>
+                        <label for="" class="control-label">Tarih</label>
                         <input type="month" class="form-control" name="month"  value="<?php echo isset($_GET['month']) ? date('Y-m',strtotime($_GET['month'].'-01')) :date('Y-m'); ?>" required>
                       </div>
                       <div class="col-md-2 offset-md-7" style="margin-top:-4.3em;">
@@ -129,7 +136,8 @@ session_start();
 
       									<th class="">Tarih</th>
       									<th class="">Kullanıcı</th>
-      									<th class="">Aidat Miktarı</th>
+      									<th class="">Miktarı</th>
+      									<th class="">Detay</th>
       									<th class="">Durum</th>
       									<th class="">Ödeme Tarihi</th>
       									<th class="text-center">Ödeme</th>
@@ -153,22 +161,30 @@ session_start();
       										 <p> İletişim: <b><?php echo ucwords($row['phonenum']) ?></b></p>
       									</td>
       									<td class="">
-      										 <p class="text-right"> <b><?php echo number_format($row['amount'],2)."₺" ?></b></p>
+      										 <p class="text-left"> <b><?php echo number_format($row['amount'],2)."₺" ?></b></p>
       									</td>
+                        <td class="">
+                           <p class="text-left"> <b><?php echo $row['detail']?></b></p>
+                        </td>
       									<td class="">
       										<?php if($row['status'] == 1): ?>
-      										 <span class="badge badge-success">Paid</span>
+      										 <span class="badge badge-success">Ödenmiş</span>
       										<?php else: ?>
-      										 <span class="badge badge-secondary">Unpaid</span>
+      										 <span class="badge badge-secondary">Ödenmemiş  </span>
       										<?php endif; ?>
       									</td>
                         <td class="">
                            <p class="text-left"> <b><?php echo ($row['payment_date'])?></b></p>
                         </td>
       									<td class="text-center">
-      										<button class="btn btn-sm btn-outline-primary view_billing" type="button" data-id="<?php echo $row['id'] ?>" >View</button>
+                          <?php if($row['status'] == 0): ?>
+                          <a href="adminpay.php?id=<?php echo $row['id'];?>">
+      										<button class="btn btn-sm btn-outline-primary view_billing" type="button" onClick="return confirm('Borcu ödemek istediğinizden emin misiniz?');">Öde</button> </a>
+                          <?php else: ?>
+                            <a href="">
+                            <button class="btn btn-sm btn-outline-danger view_billing" type="button" disabled>Ödenmiş</button> </a>
+                            <?php endif; ?>
       										<?php if($chk <= 0): ?>
-      											<button class="btn btn-sm btn-outline-primary edit_billing" type="button" data-id="<?php echo $row['id'] ?>" >Edit</button>
       										<?php endif; ?>
       									</td>
       								</tr>

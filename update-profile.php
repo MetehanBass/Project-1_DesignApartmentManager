@@ -72,7 +72,7 @@ $row = mysqli_fetch_assoc($result);
 												<div class="form-group">
 														<label class="col-sm-2 col-sm-2 control-label" style="padding-left:20px;">Parola </label>
 														<div class="col-sm-10">
-																<input type="text" class="form-control" name="password" value="<?php echo $row['password'];?>" >
+																<input type="text" class="form-control" name="password" value="" >
 														</div>
 												</div>
 

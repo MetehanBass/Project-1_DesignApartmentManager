@@ -25,7 +25,7 @@ session_start();
     <nav>
       <ul class="nav-links">
         <li><a class="nav-link" href="profile.php?id=<?php echo $_SESSION['id'];?>">Profil</a></li>
-        <li><a class="nav-link" href="dues.php">Aidat ve Gelir/Gider</a></li>
+        <li><a class="nav-link" href="dues.php">Gelir/Gider</a></li>
         <li><a class="nav-link" href="request.php">İstek/Şikayet</a></li>
       </ul>
     </nav>
@@ -44,28 +44,38 @@ session_start();
 
 
     <div class="col-sm-10" style="margin-left:5%;">
-      <table class="table table-striped table-advance table-hover">
+      <table class="table table-bordered table-condensed table-hover">
         <h4><i>Son 30 Günlük Giderler</i></h4>
         <hr><br>
           <thead>
           <tr>
               <th>Başlık</th>
+              <th>İletişim</th>
               <th>Miktar</th>
+              <th>Tarih</th>
           </tr>
           </thead>
           <tbody>
-          <?php $ret=mysqli_query($conn,"select * from incomeAnnouncement");
+
+          <?php
+          $ret=mysqli_query($conn,"select * from incomeAnnouncement");
+
+
       $cnt=1;
       while($row=mysqli_fetch_array($ret))
-      {?>
-          <tr>
+        {?>
 
-              <td><?php echo $row['header'];?></td>
-              <td><?php echo $row['amount']."₺";?></td>
-              <td>
-              </td>
-          </tr>
-          <?php $cnt=$cnt+1; }?>
+            <tr>
+                <td><?php echo $row['header'];?></td>
+                <td><?php echo $row['contact'];?></td>
+                <td><?php echo $row['amount']."₺";?></td>
+                <td><?php echo $row['anounce_date'];?></td>
+    
+            </tr>
+
+            <?php $cnt=$cnt+1;}?>
+
+
 
           </tbody>
       </table>

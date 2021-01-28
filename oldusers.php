@@ -44,7 +44,7 @@
       </div>
       <div class="col-sm-8">
         <div class="content-panel">
-    <table class="table table-striped table-advance table-hover">
+    <table class="table table-bordered table-condensed table-hover">
       <h4><i>Taşınan Üye Detayları</i></h4>
       <form class=""action="users.php" method="post">
         <button style="float:left; margin-top:1%;" class="btn btn-info btn-xs editbtn">Güncel Üyeleri Gör</button>
@@ -81,9 +81,7 @@ while($row=mysqli_fetch_array($ret))
             <td><?php echo $row['flat'];?></td>
             <td><?php echo $row['regdate'];?></td>
             <td><?php echo $row['exitdate'];?></td>
-                        <td>
 
-            </td>
         </tr>
         <?php $cnt=$cnt+1; }?>
 

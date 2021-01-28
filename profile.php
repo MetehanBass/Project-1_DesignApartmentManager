@@ -93,7 +93,7 @@ session_start();
 													<div class="form-group">
 															<label class="col-sm-2 col-sm-2 control-label" style="padding-left:20px;">Parola </label>
 															<div class="col-sm-10">
-																	<input type="password" class="form-control" name="password" value="<?php echo $row['password'];?>" >
+																	<input type="password" class="form-control" name="password" value="" >
 															</div>
 													</div>
 
@@ -147,7 +147,8 @@ session_start();
 
             									<th class="">Tarih</th>
             									<th class="">Kullanıcı</th>
-            									<th class="">Aidat Miktarı</th>
+            									<th class="">Miktar</th>
+            									<th class="">Açıklama</th>
             									<th class="">Durum</th>
             									<th class="text-center">Ödeme</th>
             								</tr>
@@ -170,6 +171,9 @@ session_start();
             									<td class="">
             										 <p class="text-right"> <b><?php echo number_format($row['amount'],2)."₺" ?></b></p>
             									</td>
+                              <td class="">
+                                 <p class="text-left"> <b><?php echo $row['detail']?></b></p>
+                              </td>
             									<td class="">
             										<?php if($row['status'] == 1): ?>
             										 <span class="badge badge-success">Ödenmiş</span>
@@ -204,7 +208,8 @@ session_start();
 
                               <th class="">Tarih</th>
                               <th class="">Kullanıcı</th>
-                              <th class="">Aidat Miktarı</th>
+                              <th class="">Miktar</th>
+                              <th class="">Açıklama</th>
                               <th class="">Durum</th>
                               <th class="text-center">Ödeme Tarihi</th>
                             </tr>
@@ -226,6 +231,9 @@ session_start();
                               </td>
                               <td class="">
                                  <p class="text-right"> <b><?php echo number_format($row['amount'],2)."₺" ?></b></p>
+                              </td>
+                              <td class="">
+                                 <p class="text-left"> <b><?php echo $row['detail']?></b></p>
                               </td>
                               <td class="">
                                 <?php if($row['status'] == 1): ?>

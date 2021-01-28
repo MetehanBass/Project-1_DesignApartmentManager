@@ -11,10 +11,9 @@ include "db_conn.php";
   $phonenum1 = $_POST['phonenum1'];
   $block = $_POST['block'];
   $flat = $_POST['flat'];
-  $dept = $_POST['dept'];
-  $extradept = $_POST['extradept'];
 
-  $query = "UPDATE users SET user_name = '$username',password = '$password', name = '$name', email = '$email', phonenum = '$phonenum', phonenum1 = '$phonenum1', block = '$block', flat ='$flat', dept = '$dept' , extradept = '$extradept' WHERE id='".$id."'";
+
+  $query = "UPDATE users SET user_name = '$username',password = '$password', name = '$name', email = '$email', phonenum = '$phonenum', phonenum1 = '$phonenum1', block = '$block', flat ='$flat' WHERE id='".$id."'";
   $query_run = mysqli_query($conn,$query);
 
   if($query)

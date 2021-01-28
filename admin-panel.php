@@ -239,7 +239,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
       </div>
 
       <div style="overflow-x: auto;" id="Bblok" class="tabcontent">
-        <table class="table table-striped table-advance table-hover">
+        <table class="table table-bordered table-condensed table-hover">
           <h4><i>İstek / Şikayetler</i></h4>
           <hr><br>
             <thead>
@@ -259,7 +259,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
                 <td><?php echo $row['email'];?></td>
                 <td><?php echo $row['name'];?></td>
                 <td><?php echo $row['request'];?></td>
-                <td>
+                <td style="width:1em;">
 
                    <a href="admin-panel.php?id=<?php echo $row['id'];?>">
                    <button class="btn btn-danger btn-xs" onClick="return confirm('Talebi/Şikayeti silmek istediğinizden emin misiniz?');"><i class="fa fa-trash-o "></i></button></a>
@@ -316,7 +316,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
         </div>
       </form>
     </div> <br><br>
-      <table class="table table-striped table-advance table-hover">
+      <table class="table table-bordered table-condensed table-hover">
         <h4><i>Güncel Duyurular</i></h4>
         <hr><br>
           <thead>
@@ -334,7 +334,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
 
               <td><?php echo $row['header'];?></td>
               <td><?php echo $row['content'];?></td>
-              <td>
+              <td style="width:1em;">
 
                  <a href="admin-panel.php?id=<?php echo $row['id'];?>">
                  <button class="btn btn-danger btn-xs" onClick="return confirm('Duyuruyu silmek istediğinizden emin misiniz?');"><i class="fa fa-trash-o "></i></button></a>
@@ -406,7 +406,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
 
 
     </div> <br><br>
-    <table class="table table-striped table-advance table-hover">
+    <table class="table table-bordered table-condensed table-hover">
       <h4><i>Gelir Duyuruları</i></h4>
       <hr><br>
         <thead>
@@ -418,7 +418,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
         </tr>
         </thead>
         <tbody>
-        <?php $ret=mysqli_query($conn,"select * from incomeAnnouncement");
+        <?php $ret=mysqli_query($conn,"select * from incomeAnnouncement");        
     $cnt=1;
     while($row=mysqli_fetch_array($ret))
     {?>
@@ -428,7 +428,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
             <td><?php echo $row['contact'];?></td>
             <td><?php echo $row['amount']."₺";?></td>
             <td><?php echo $row['anounce_date'];?></td>
-            <td>
+            <td style="width:1em;">
 
                <a href="admin-panel.php?id=<?php echo $row['id'];?>">
                <button class="btn btn-danger btn-xs" onClick="return confirm('Duyuruyu silmek istediğinizden emin misiniz?');"><i class="fa fa-trash-o "></i></button></a>
@@ -441,36 +441,63 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
   </div>
   <div id="Odemeler" class="tabcontent">
 
-    <table class="table table-striped table-advance table-hover">
-      <hr><br>
-        <thead>
+    <table class="table table-bordered table-condensed table-hover">
+      <!-- <colgroup>
+        <col width="2%">
+        <col width="10%">
+        <col width="10%">
+        class="btn btn-primary btn-block"
+        <col width="15%">
+        <col width="20%">
+        <col width="15%">
+        <col width="10%">
+      </colgroup> -->
+      <thead>
         <tr>
-            <th>Kullanıcı Adı</th>
-            <th>İsim</th>
-            <th>Miktar</th>
-            <th>Tarih</th>
 
+          <th class="">Tarih</th>
+          <th class="">Kullanıcı</th>
+          <th class="">Miktarı</th>
+          <th class="">Detay</th>
+          <th class="">Durum</th>
+          <th class="">Ödeme Tarihi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $billing = $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where status='1' order by payment_date   desc");
+          while($row=$billing->fetch_assoc()):
+          ?>
+        <tr>
+
+
+          <td class="">
+             <p> <b><?php echo date("M, Y",strtotime($row['billing_date'])) ?></b></p>
+          </td>
+          <td class="">
+             <p> İsim: <b><?php echo ucwords($row['name']) ?></b></p>
+             <p> İletişim: <b><?php echo ucwords($row['phonenum']) ?></b></p>
+          </td>
+          <td class="">
+             <p class="text-left"> <b><?php echo number_format($row['amount'],2)."₺" ?></b></p>
+          </td>
+          <td class="">
+             <p class="text-left"> <b><?php echo $row['detail']?></b></p>
+          </td>
+          <td class="">
+            <?php if($row['status'] == 1): ?>
+             <span class="badge badge-success">Ödenmiş</span>
+            <?php else: ?>
+             <span class="badge badge-secondary">Ödenmemiş  </span>
+            <?php endif; ?>
+          </td>
+          <td class="">
+             <p class="text-left"> <b><?php echo ($row['payment_date'])?></b></p>
+          </td>
 
         </tr>
-        </thead>
-        <tbody>
-        <?php $ret=mysqli_query($conn,"select * from paymentdetails");
-$cnt=1;
-while($row=mysqli_fetch_array($ret))
-{?>
-        <tr>
-            <td><?php echo $row['username'] ?></td>
-            <td><?php echo $row['name'] ?></td>
-            <td><?php echo $row['amount'];?></td>
-            <td><?php echo $row['paydate'];?></td>
-
-                        <td>
-
-            </td>
-        </tr>
-        <?php $cnt=$cnt+1; }?>
-
-        </tbody>
+        <?php endwhile; ?>
+      </tbody>
     </table>
 
 </div>
