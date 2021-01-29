@@ -1,6 +1,19 @@
 <?php include "db_conn.php";
 session_start();
 
+$month = isset($_GET['month']) ? date('Y-m',strtotime($_GET['month'].'-01')) : date('Y-m') ;
+
+  $page1=1;
+if(isset($_GET['page'])){
+$page =$_GET['page'];
+
+if($page =="" || $page =="1"){
+  $page1=0;
+}
+else{
+  $page1 = ($page*10)-10;
+}
+}
 ?>
 
 <!doctype html>
@@ -101,12 +114,15 @@ session_start();
 
                       </form>
       				</span>
+
       					</div>
       					<div class="card-body">
-                    <h3><b>Aylık Aidat Listesi<b></h3>
+                    <h3><b>Aylık Borç Listesi<b></h3>
       						<div class="row form-group">
-                    <div class="col-md-8 offset-md-3">
+                    <div class="col-md-8 offset-md-5" style="margin-left:36.5%;">
                       <form class="" action="filter-month.php" method="post">
+                  <div class="col-md-2 float-left" id = "container" style = "width: 550px; min-height: 100px; margin-left:-30%;">
+                </div>
                       <div class="col-md-4 offset-md-3">
                         <label for="" class="control-label">Tarih</label>
                         <input type="month" class="form-control" name="month"  value="<?php echo isset($_GET['month']) ? date('Y-m',strtotime($_GET['month'].'-01')) :date('Y-m'); ?>" required>
@@ -115,11 +131,68 @@ session_start();
                             <label for="" class="control-label">&nbsp</label>
                             <button class="btn btn-primary btn-block " id="filter" type="">Filtrele</button>
                             </div>
+                            <?php
+                                                    $result = mysqli_query($conn, "SELECT SUM(amount) AS amount_sum FROM billing WHERE date_format(billing_date,'%Y-%m') = '$month'");
+                                                    $row = mysqli_fetch_assoc($result);
+                                                    $sum = $row['amount_sum']; // Total debt of this.month
+
+                                                    $result = mysqli_query($conn, "SELECT SUM(amount) AS paid_sum FROM billing WHERE date_format(billing_date,'%Y-%m') = '$month' AND status ='1' ");
+                                                    $row = mysqli_fetch_assoc($result);
+                                                    $paid = $row['paid_sum']; // Total paid of this.month
+
+                                                    $unpaid = $sum-$paid;
+
+
+                                                    ?>
+
+
+                       <script type = 'text/javascript' src = 'https://www.gstatic.com/charts/loader.js'>
+                                  </script>
+                                  <script type = 'text/javascript'>
+                                     google.charts.load('current', {packages: ['corechart']});
+
+                                  </script>
+
+
+                                  <script language = 'JavaScript'>
+                                    var paid = <?php echo $paid ?>;
+                                    var unpaid = <?php echo $unpaid ?>;
+
+                                     function drawChart() {
+                                        // Define the chart to be drawn.
+                                        var data = new google.visualization.DataTable();
+                                        data.addColumn('string', 'Browser');
+                                        data.addColumn('number', 'Percentage');
+                                        data.addRows([
+                                           ['Firefox', 0],
+                                           ['Ödenmemiş Tutar', unpaid],
+                                           ['Chrome',0],
+                                           ['Ödenmiş Tutar', paid],
+                                           ['Opera', 0],
+                                           ['Others', 0]
+                                        ]);
+
+                                        // Set chart options
+                                        var options = {
+                                           'title':'<?php echo date('M, Y',strtotime($month)).' Tarihinin Ödeme Grafiği'; ?>',
+                                           'width':550,
+                                           'height':300,
+                                           pieHole: 0.4,
+                                           'backgroundColor':'#e5eef4'
+                                        };
+
+                                        // Instantiate and draw the chart.
+                                        var chart = new google.visualization.PieChart(document.getElementById('container'));
+                                        chart.draw(data, options);
+                                     }
+                                      google.charts.setOnLoadCallback(drawChart);
+                                  </script>
                         </form>
                       </div>
 
                     </div>
       						<hr>
+
       						<table class="table table-bordered table-condensed table-hover">
       							<!-- <colgroup>
       								<col width="2%">
@@ -145,9 +218,21 @@ session_start();
       							</thead>
       							<tbody>
       								<?php
-      								$month = isset($_GET['month']) ? date('Y-m',strtotime($_GET['month'].'-01')) : date('Y-m') ;
-      								$billing = $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date_format(b.billing_date,'%Y-%m') = '$month' order by b.id asc");
-      									while($row=$billing->fetch_assoc()):
+
+
+
+
+
+
+                      $billingcounter = $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date_format(b.billing_date,'%Y-%m') = '$month' order by b.id");
+      								$billing = $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date_format(b.billing_date,'%Y-%m') = '$month' order by status asc limit $page1,10");
+                      $count = mysqli_num_rows($billingcounter);
+
+
+                      $a =$count/10;
+                      $a = ceil($a);
+
+                      	while($row=$billing->fetch_assoc()):
       									$chk =  $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date(b.billing_date) > '".$month."-01' and b.id != '".$row['id']."' and b.user_id = '".$row['user_id']."' order by date(b.billing_date) asc")->num_rows;
                         ?>
                     	<tr>
@@ -167,6 +252,7 @@ session_start();
                            <p class="text-left"> <b><?php echo $row['detail']?></b></p>
                         </td>
       									<td class="">
+
       										<?php if($row['status'] == 1): ?>
       										 <span class="badge badge-success">Ödenmiş</span>
       										<?php else: ?>
@@ -182,7 +268,7 @@ session_start();
       										<button class="btn btn-sm btn-outline-primary view_billing" type="button" onClick="return confirm('Borcu ödemek istediğinizden emin misiniz?');">Öde</button> </a>
                           <?php else: ?>
                             <a href="">
-                            <button class="btn btn-sm btn-outline-danger view_billing" type="button" disabled>Ödenmiş</button> </a>
+                            <button class="btn btn-sm btn-outline-danger view_billing" type="button" style="background-color:red;color:white;" disabled>Ödenmiş</button> </a>
                             <?php endif; ?>
       										<?php if($chk <= 0): ?>
       										<?php endif; ?>
@@ -190,7 +276,13 @@ session_start();
       								</tr>
       								<?php endwhile; ?>
       							</tbody>
+
       						</table>
+                    <?php
+                    for($b=0;$b < $a;$b++) {
+                    ?> <a href="billing.php?month=<?php echo $month; ?>&page=<?php echo $b+1; ?>" style="text-decoration:none;"><?php echo $b+1; ?></a> <?php
+                    }
+                     ?>
       					</div>
       				</div>
       			</div>
@@ -231,6 +323,7 @@ session_start();
       </script>
 
     </div>
+
   </div>
   <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-3">© 2020 Copyright: Metehan Baş

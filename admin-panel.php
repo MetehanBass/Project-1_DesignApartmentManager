@@ -398,7 +398,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
             </div>
           </div>
           <div class="col-sm-10" style="margin-left:-2%;">
-            <button type="submit" value="Ekle" class="btn btn-primary" name="submit">Gelir Duyurusu Ekle</button>
+            <button type="submit" value="Ekle" class="btn btn-primary" name="submit">Gider Duyurusu Ekle</button>
           </div>
         </form>
 
@@ -407,7 +407,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
 
     </div> <br><br>
     <table class="table table-bordered table-condensed table-hover">
-      <h4><i>Gelir Duyuruları</i></h4>
+      <h4><i>Gider Duyuruları</i></h4>
       <hr><br>
         <thead>
         <tr>
@@ -418,7 +418,7 @@ $msg2=mysqli_query($conn,"delete from incomeAnnouncement where id='$adminid'");
         </tr>
         </thead>
         <tbody>
-        <?php $ret=mysqli_query($conn,"select * from incomeAnnouncement");        
+        <?php $ret=mysqli_query($conn,"select * from incomeAnnouncement");
     $cnt=1;
     while($row=mysqli_fetch_array($ret))
     {?>
