@@ -1,6 +1,8 @@
 <?php
 session_start();
 include "db_conn.php";
+$userid = $_SESSION['id'];
+
  ?>
 <html lang="en">
 
@@ -48,7 +50,26 @@ include "db_conn.php";
     <div class="col-sm-2">
     </div>
     <div class="col-sm-8">
-      <br><br>
+      <?php
+      $billing = $conn->query("SELECT b.* from billing b inner join users u on u.id = b.user_id where user_id =$userid AND status ='0'");
+      $row = mysqli_num_rows($billing);
+
+      if($row == 0){?>
+        <div class="alert alert-success alert-dismissible" style="max-width:50%;margin-left:25%;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Ödenmemiş Borcunuz Bulunmamaktadır.</strong>
+    </div>
+  <?php } else { ?>
+    <div class="alert alert-danger alert-dismissible" style="max-width:50%;margin-left:25%;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Dikkat!</strong> Ödenmemiş Borcunuz Bulunmaktadır.Lütfen Ödeyiniz.
+    </div>
+<?php   } ?>
+
+
+
+
+
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <?php $ret=mysqli_query($conn,"select * from announcement");

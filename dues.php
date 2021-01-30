@@ -1,6 +1,8 @@
 <?php
 include "db_conn.php";
 session_start();
+$month = date('Y-m');
+
  ?>
 <html lang="en">
 
@@ -37,15 +39,83 @@ session_start();
       </p>
     </div>
   </header>
-  <br><br><br><br><br><br>
+  <br>
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-2 offset-md-5">
+      <div class="col-md-2" id = "container" style = "width: 550px; max-height: 425px; margin-left:-30%;">
+    </div>
     </div>
 
 
-    <div class="col-sm-10" style="margin-left:5%;">
+    <div class="col-sm-10" style="margin-left:5%;margin-top:-5%;">
+
+
+
+
+      <?php
+                              $result = mysqli_query($conn, "SELECT SUM(amount) AS amount_sum FROM billing WHERE date_format(billing_date,'%Y-%m') = '$month'");
+                              $row = mysqli_fetch_assoc($result);
+                              $sum = $row['amount_sum']; // Total debt of this.month
+
+                              $result = mysqli_query($conn, "SELECT SUM(amount) AS paid_sum FROM billing WHERE date_format(billing_date,'%Y-%m') = '$month' AND status ='1' ");
+                              $row = mysqli_fetch_assoc($result);
+                              $paid = $row['paid_sum']; // Total paid of this.month
+
+                              if($paid == ""){
+                                $paid = 0;
+                              }
+
+                              $unpaid = $sum-$paid;
+
+
+                              ?>
+                              <script type = 'text/javascript' src = 'https://www.gstatic.com/charts/loader.js'>
+                              </script>
+                              <script type = 'text/javascript'>
+                              google.charts.load('current', {packages: ['corechart']});
+
+                              </script>
+
+
+              <script language = 'JavaScript'>
+                var paid = <?php echo $paid ?>;
+                var unpaid = <?php echo $unpaid ?>;
+                var sum = <?php echo $sum?>;
+
+                 function drawChart() {
+                    // Define the chart to be drawn.
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Browser');
+                    data.addColumn('number', 'Percentage');
+                    data.addRows([
+                       ['Ödenmesi Beklenen Tutar',0],
+                       ['Ödenmemiş Tutar', unpaid],
+                       ['Chrome',0],
+                       ['Ödenmiş Tutar', paid],
+                       ['Opera', 0],
+                       ['Others', 0]
+                    ]);
+
+                    // Set chart options
+                    var options = {
+                       'title':'<?php echo date('M, Y',strtotime($month)).' Tarihinin Ödeme Grafiği'; ?>',
+                       'width':600,
+                       'height':425,
+                       pieHole: 0.40,
+                       'backgroundColor':'transparent',
+                       'is3D':true
+
+                    };
+
+                    // Instantiate and draw the chart.
+                    var chart = new google.visualization.PieChart(document.getElementById('container'));
+                    chart.draw(data, options);
+                 }
+                  google.charts.setOnLoadCallback(drawChart);
+              </script>
+
       <table class="table table-bordered table-condensed table-hover">
-        <h4><i>Son 30 Günlük Giderler</i></h4>
+        <h4><i> Gider Duyuruları</i></h4>
         <hr><br>
           <thead>
           <tr>
@@ -70,7 +140,7 @@ session_start();
                 <td><?php echo $row['contact'];?></td>
                 <td><?php echo $row['amount']."₺";?></td>
                 <td><?php echo $row['anounce_date'];?></td>
-    
+
             </tr>
 
             <?php $cnt=$cnt+1;}?>

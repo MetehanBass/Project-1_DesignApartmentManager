@@ -29,6 +29,7 @@ $row = mysqli_fetch_assoc($result);
         <ul class="nav-links">
 					<li><a class="nav-link" href="admin-panel.php">Ana Sayfa</a></li>
           <li><a class="nav-link" href="users.php">Üyeler</a></li>
+          <li><a class="nav-link" href="billing.php">Aidatlandırma</a></li>
 
         </ul>
       </nav>

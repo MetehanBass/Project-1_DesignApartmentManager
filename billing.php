@@ -3,16 +3,21 @@ session_start();
 
 $month = isset($_GET['month']) ? date('Y-m',strtotime($_GET['month'].'-01')) : date('Y-m') ;
 
-  $page1=1;
+$page1=1;
+
 if(isset($_GET['page'])){
 $page =$_GET['page'];
 
-if($page =="" || $page =="1"){
+if($page == "1"){
   $page1=0;
 }
 else{
   $page1 = ($page*10)-10;
 }
+
+}
+else{
+  $page1=0;
 }
 ?>
 
@@ -123,6 +128,7 @@ else{
                       <form class="" action="filter-month.php" method="post">
                   <div class="col-md-2 float-left" id = "container" style = "width: 550px; min-height: 100px; margin-left:-30%;">
                 </div>
+
                       <div class="col-md-4 offset-md-3">
                         <label for="" class="control-label">Tarih</label>
                         <input type="month" class="form-control" name="month"  value="<?php echo isset($_GET['month']) ? date('Y-m',strtotime($_GET['month'].'-01')) :date('Y-m'); ?>" required>
@@ -139,6 +145,10 @@ else{
                                                     $result = mysqli_query($conn, "SELECT SUM(amount) AS paid_sum FROM billing WHERE date_format(billing_date,'%Y-%m') = '$month' AND status ='1' ");
                                                     $row = mysqli_fetch_assoc($result);
                                                     $paid = $row['paid_sum']; // Total paid of this.month
+
+                                                    if($paid == ""){
+                                                      $paid = 0;
+                                                    }
 
                                                     $unpaid = $sum-$paid;
 
@@ -157,6 +167,7 @@ else{
                                   <script language = 'JavaScript'>
                                     var paid = <?php echo $paid ?>;
                                     var unpaid = <?php echo $unpaid ?>;
+                                    var sum = <?php echo $sum?>;
 
                                      function drawChart() {
                                         // Define the chart to be drawn.
@@ -164,7 +175,7 @@ else{
                                         data.addColumn('string', 'Browser');
                                         data.addColumn('number', 'Percentage');
                                         data.addRows([
-                                           ['Firefox', 0],
+                                           ['Ödenmesi Beklenen Tutar',0],
                                            ['Ödenmemiş Tutar', unpaid],
                                            ['Chrome',0],
                                            ['Ödenmiş Tutar', paid],
@@ -177,7 +188,7 @@ else{
                                            'title':'<?php echo date('M, Y',strtotime($month)).' Tarihinin Ödeme Grafiği'; ?>',
                                            'width':550,
                                            'height':300,
-                                           pieHole: 0.4,
+                                           pieHole: 0.40,
                                            'backgroundColor':'#e5eef4'
                                         };
 
@@ -219,12 +230,7 @@ else{
       							<tbody>
       								<?php
 
-
-
-
-
-
-                      $billingcounter = $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date_format(b.billing_date,'%Y-%m') = '$month' order by b.id");
+                      $billingcounter = $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date_format(b.billing_date,'%Y-%m') = '$month' order by b.id asc");
       								$billing = $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date_format(b.billing_date,'%Y-%m') = '$month' order by status asc limit $page1,10");
                       $count = mysqli_num_rows($billingcounter);
 
@@ -232,7 +238,7 @@ else{
                       $a =$count/10;
                       $a = ceil($a);
 
-                      	while($row=$billing->fetch_assoc()):
+                      	while($row=$billing->fetch_assoc()){
       									$chk =  $conn->query("SELECT b.*,u.name,u.phonenum from billing b inner join users u on u.id = b.user_id where date(b.billing_date) > '".$month."-01' and b.id != '".$row['id']."' and b.user_id = '".$row['user_id']."' order by date(b.billing_date) asc")->num_rows;
                         ?>
                     	<tr>
@@ -274,7 +280,7 @@ else{
       										<?php endif; ?>
       									</td>
       								</tr>
-      								<?php endwhile; ?>
+                    <?php } ?>
       							</tbody>
 
       						</table>
@@ -304,30 +310,13 @@ else{
       	}
       </style>
 
-      <script>
-      	$('#check_all').click(function(){
-      		if($(this).prop('checked') == true)
-      			$('[name="checked[]"]').prop('checked',true)
-      		else
-      			$('[name="checked[]"]').prop('checked',false)
-      	})
-      	$('[name="checked[]"]').click(function(){
-      		var count = $('[name="checked[]"]').length
-      		var checked = $('[name="checked[]"]:checked').length
-      		if(count == checked)
-      			$('#check_all').prop('checked',true)
-      		else
-      			$('#check_all').prop('checked',false)
-      	})
-        });
-      </script>
-
     </div>
 
   </div>
   <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-3">© 2020 Copyright: Metehan Baş
     </div>
+  </footer>
     <script type="text/javascript" src="./js/manager.js"></script>
     <script type="text/javascript" src="./js/billing.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
