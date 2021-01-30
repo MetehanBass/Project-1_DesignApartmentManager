@@ -109,7 +109,7 @@
                          </td>
                          <td class="text-center">
                             <?php if($row['status'] == 0): ?>
-                            <a href="adminpay.php?id=<?php echo $row['id'];?>">
+                            <a href="user-bill-pay.php?id=<?php echo $row['id'];?>">
                            <button class="btn btn-sm btn-outline-primary view_billing" type="button" onClick="return confirm('Borcu ödemek istediğinizden emin misiniz?');">Öde</button> </a>
                             <?php else: ?>
                               <a href="">
