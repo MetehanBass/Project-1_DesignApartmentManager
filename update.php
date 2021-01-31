@@ -21,7 +21,7 @@ include "db_conn.php";
 
   }
   else {
-    $query = "UPDATE users SET user_name = '$username', name = '$name', email = '$email', phonenum = '$phonenum', phonenum1 = '$phonenum1' WHERE id='".$id."'";
+    $query = "UPDATE users SET user_name = '$username', name = '$name', email = '$email', phonenum = '$phonenum', phonenum1 = '$phonenum1', block ='$block',flat='$flat' WHERE id='".$id."'";
     $query_run = mysqli_query($conn,$query);
 
     if($query)

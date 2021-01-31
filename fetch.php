@@ -55,7 +55,7 @@ if(isset($_POST["query"]))
           <button class="btn btn-primary btn-xs editbtn"><i class="fa fa-pencil"></i></button></a>
 
           <a href="users.php?id='.$row["id"].'">
-          <button class="btn btn-danger btn-xs" onClick="return confirm("Kullanıcıyı silmek istediğinizden emin misiniz?");"><i class="fa fa-trash-o "></i></button></a>
+         <button class="btn btn-danger btn-xs" onClick="return confirm("Kullanıcıyı silmek istediğinizden emin misiniz?");"> <i class="fa fa-trash-o "></i></button></a> <?php
        </td>
    </tr>
    ';
